@@ -1,8 +1,11 @@
 ---
 # tasks file for minions
 - name: Reset Kubernetes
-  shell: kubeadm reset
+  shell: "kubeadm reset -f"
   register: kubeadm_reset
+
+- debug:
+    msg: "kubeadm join --ignore-preflight-errors=all --token {{ token }} {{ groups['master'][0] }}:6443 --discovery-token-unsafe-skip-ca-verification"
 
 - name: Join Kubernetes Cluster
   shell: kubeadm join --ignore-preflight-errors=all --token {{ token }} {{ groups['master'][0] }}:6443 --discovery-token-unsafe-skip-ca-verification
