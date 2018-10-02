@@ -57,3 +57,7 @@
   tags:
     - boot
     - shutdown
+
+- name: Set forward policy in iptables
+  shell: iptables -P FORWARD ACCEPT
+  become: True
